@@ -1,4 +1,4 @@
-// expect function that return a object with toBe method
+// expect function that returns an object with toBe method
 // => example expect(sum(10,20)).toBe(30)
 
 function expect(actual) {
@@ -34,7 +34,7 @@ function testCb(string, cb, passed, failed) {
 
 
 // function that returns a test function but also tracks the number of passed and failed tests
-// The returned function thats a string(description) and a callback
+// The returned function calls the testCb function above
 function counter() {
   let passed = 0;
   let failed = 0
