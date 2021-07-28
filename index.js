@@ -1,4 +1,4 @@
-// expect function that returns an object with toBe method
+// expect function that returns an object with a toBe method
 // => example expect(sum(10,20)).toBe(30)
 
 function expect(actual) {
@@ -14,18 +14,18 @@ function expect(actual) {
 // test function that takes in a string(test description) and a callback(test assertions)
 //passed and failed arguments will be partially applied by the counter function below
 
-function testCb(string, cb, passed, failed) {
+function testCb(string, cb, numTests) {
   console.log("_____________________________________")
 
   try {
-    passed = passed + 1
+    numTests.passed += 1
     cb()
-    console.log(passed + " tests has passed")
+    console.log(numTests.passed + " tests have passed")
     console.log(`✅  ${string} has passed.`)
   }
   catch (e) {
-    failed = failed + 1
-    console.log(failed + " tests has failed")
+    numTests.failed += 1
+    console.log(numTests.failed + " tests have failed")
     console.log(`❌  ${string} has failed.`)
     console.error(e.message)
   }
@@ -34,12 +34,12 @@ function testCb(string, cb, passed, failed) {
 
 
 // function that returns a test function but also tracks the number of passed and failed tests
-// The returned function calls the testCb function above
+// The returned function calls the testCb function above and uses closure to close over `passed` and `failed`.
+
 function counter() {
-  let passed = 0;
-  let failed = 0
+  let numTests = {passed:0,failed:0}
   return (string,cb) => {
-    testCb(string,cb,passed,failed)
+    testCb(string,cb,numTests)
   }
 }
 
